@@ -53,13 +53,42 @@ lauren = Player('Lauren', room['outside'])
 # If the user enters "q", quit the game.
 game_active = True
 while game_active:
-    print(f'Current Room Name: {lauren.room.name}\nCurrent Room Description: {lauren.room.description}')
+    print(f'\nCurrent Room Name: {lauren.room.name}\nCurrent Room Description: {lauren.room.description} \n')
 
     x = input('Enter where you want to go: ')
 
     if x == 'n':
-        if lauren.room == room['outside'] or lauren.room == room['narrow']:
+        if lauren.room == room['outside'] or lauren.room == room['narrow'] or lauren.room == room['foyer']:
             lauren.room = lauren.room.n_to
-            print(lauren.room)
         else:
-            print("Movement isn't allowed, try again!")
+            print("Movement isn't allowed, try again!\n")
+
+    if x == 'e':
+        if lauren.room == room['foyer']:
+            lauren.room = lauren.room.e_to
+        else:
+            print("Movement isn't allowed, try again!\n")
+    
+    if x == 's':
+        if lauren.room == room['foyer'] or lauren.room == room['treasure'] :
+            lauren.room = lauren.room.s_to
+        else:
+            print("Movement isn't allowed, try again!\n")
+
+    if x == 'w':
+        if lauren.room == room['narrow']:
+            lauren.room = lauren.room.w_to
+        else:
+            print("Movement isn't allowed, try again!\n")
+    
+    if x == 'q':
+        y = input('Are you sure you want to quit? y/n: ')
+        if y == 'y':
+            print("Okay, see you next time!")
+            game_active = False
+        elif y == 'n':
+            x = input('Enter where you want to go: ')
+        else:
+            print('Please enter "y" to quit the game or "n" to resume game.')
+
+    
