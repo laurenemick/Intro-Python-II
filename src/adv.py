@@ -44,7 +44,7 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-lauren = Player('Lauren', room['outside'], [])
+lauren = Player('Lauren', room['outside'])
  
 # Write a loop that:
 #
@@ -57,10 +57,20 @@ lauren = Player('Lauren', room['outside'], [])
 #
 # If the user enters "q", quit the game.
 game_active = True
-while game_active:
-    print(f'\nWelcome {lauren.name}!\nYou are currently in the {lauren.room.name} room.\n{lauren.room.description}\n\nThis Room contains the following items:\n\t1. {lauren.room.items[0]}\n\t2. {lauren.room.items[1]}\nYour belongings include: {lauren.items}\n\n')
 
-    x = input('Enter where you want to go: ')
+print(f'\nWelcome {lauren.name}!')
+
+while game_active:
+    print(f'\nYou are currently in the {lauren.room.name} room.\n{lauren.room.description}\n')
+
+    if len(lauren.room.items) > 0:
+        print('This Room contains the following items:\n')
+        for index, item in enumerate(lauren.room.items):
+            print(f"{index+1}. {item}")
+    else:
+        print(f"No items in the {lauren.room.name}")
+
+    x = input('\nWhere do you want to go? ')
 
     if x == 'n':
         if lauren.room == room['outside'] or lauren.room == room['narrow'] or lauren.room == room['foyer']:
