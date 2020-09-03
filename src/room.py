@@ -5,7 +5,9 @@ class Room:
         self.name = name
         self.description = description
         self.items = items
+        self.contents = [] # has_a
+
     def __str__(self):
-        return f"{self.name}\n{self.description}\n{self.items}"
+        return f"No items in {self.name}"
     def __repr__(self):
         return f"Room({self.name}, {self.description}, {self.items})"

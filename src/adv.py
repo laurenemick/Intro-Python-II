@@ -1,29 +1,30 @@
 from room import Room
 from player import Player
 from item import Item
+from weapon import Weapon
 
 # Declare all the rooms
 room = {
     'outside':  Room("Outside Cave Entrance",
                      "North of you, the cave mount beckons",
-                     "food, water"),
+                     [Weapon("gun", "shot gun"), Weapon("knife", "sharp one")]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east.""",
-"health"),
+[Weapon("gun", "shot gun"), Weapon("knife", "sharp one")]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
 the distance, but there is no way across the chasm.""", 
-""),
+[]),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
 to north. The smell of gold permeates the air.""",
-"treasure"),
+[]),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by earlier adventurers. The only exit is to the south.""",
-"water"),
+[]),
 }
 
 
@@ -38,19 +39,12 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
-
-items = {
-    'water': Item("Water"),
-    'health': Item("Health"),
-    'food': Item("Food"),
-    'treasure': Item("Treasure")
-}
 #
 # Main
 #
 
 # Make a new player object that is currently in the 'outside' room.
-lauren = Player('Lauren', room['outside'], items['water'])
+lauren = Player('Lauren', room['outside'], [])
  
 # Write a loop that:
 #
@@ -64,7 +58,7 @@ lauren = Player('Lauren', room['outside'], items['water'])
 # If the user enters "q", quit the game.
 game_active = True
 while game_active:
-    print(f'\nCurrent Room Name: {lauren.room.name}\nCurrent Room Description: {lauren.room.description}\nCurrent Room Items: {lauren.room.items}\n\n')
+    print(f'\nWelcome {lauren.name}!\nYou are currently in the {lauren.room.name} room.\n{lauren.room.description}\n\nThis Room contains the following items:\n\t1. {lauren.room.items[0]}\n\t2. {lauren.room.items[1]}\nYour belongings include: {lauren.items}\n\n')
 
     x = input('Enter where you want to go: ')
 
