@@ -11,7 +11,7 @@ room = {
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east.""",
-[Weapon("gun", "shot gun"), Weapon("knife", "sharp one")]),
+[Weapon("gun", "shot gun"),]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
@@ -39,6 +39,8 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+print('outside room name n: ', room['outside'].n_to.name )
+print('outside room name s: ', room['outside'].s_to)
 #
 # Main
 #
@@ -64,39 +66,40 @@ while game_active:
     print(f'\nYou are currently in the {lauren.room.name} room.\n{lauren.room.description}\n')
 
     if len(lauren.room.items) > 0:
-        print('This Room contains the following items:\n')
+        print('This Room contains the following items:')
         for index, item in enumerate(lauren.room.items):
-            print(f"{index+1}. {item}")
+            print(f"\t{index+1}. {item}")
     else:
         print(f"No items in the {lauren.room.name}")
 
     x = input('\nWhere do you want to go? ')
+    print("\n------------------------------------------------------------")
 
     if x == 'n':
-        if lauren.room == room['outside'] or lauren.room == room['narrow'] or lauren.room == room['foyer']:
+        if lauren.room.n_to:
             lauren.room = lauren.room.n_to
         else:
             print("Movement isn't allowed, try again!\n")
 
-    if x == 'e':
-        if lauren.room == room['foyer']:
+    elif x == 'e':
+        if lauren.room.e_to:
             lauren.room = lauren.room.e_to
         else:
             print("Movement isn't allowed, try again!\n")
     
-    if x == 's':
-        if lauren.room == room['foyer'] or lauren.room == room['treasure'] :
+    elif x == 's':
+        if lauren.room.s_to:
             lauren.room = lauren.room.s_to
         else:
             print("Movement isn't allowed, try again!\n")
 
-    if x == 'w':
-        if lauren.room == room['narrow']:
+    elif x == 'w':
+        if lauren.room.w_to:
             lauren.room = lauren.room.w_to
         else:
             print("Movement isn't allowed, try again!\n")
     
-    if x == 'q':
+    elif x == 'q':
         y = input('Are you sure you want to quit? y/n: ')
         if y == 'y':
             print("Okay, see you next time!")
@@ -105,5 +108,6 @@ while game_active:
             x = input('Enter where you want to go: ')
         else:
             print('Please enter "y" to quit the game or "n" to resume game.')
-
+    else: 
+        print("Please select a valid input!")
     

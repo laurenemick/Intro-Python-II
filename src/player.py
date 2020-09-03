@@ -18,7 +18,7 @@ class Player:
     #     # return the current room at direction to
     #     # otherwise, tell the player they can not go that way
 
-    def pick_up(self, item):
+    def get(self, item):
         self.inventory.append(item)
         return f"You picked up {item}"
 
