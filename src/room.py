@@ -9,13 +9,7 @@ class Room:
         self.e_to = None
         self.w_to = None
         self.s_to = None
-        self.contents = [] # has_a
-
-    # def print_items(items):
-    #     for i in items:
-    #         self.contents.append(i)
-
-    # print_items(self.items)
+        # self.contents = [] # has_a
 
     def __str__(self):
         return f"No items in {self.name}"
